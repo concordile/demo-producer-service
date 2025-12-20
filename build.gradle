@@ -30,6 +30,9 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
     testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // FIXME: update springCloudVersion
+    testImplementation("io.rest-assured:rest-assured:6.0.0")
+    testImplementation("io.rest-assured:spring-mock-mvc:6.0.0")
 }
 
 dependencyManagement {
@@ -39,6 +42,11 @@ dependencyManagement {
 }
 
 contracts {
+    def pkg = 'io.github.concordile.demo.producer'
+    basePackageForTests = pkg
+    baseClassMappings {
+        baseClassMapping('consumer-service.rest', "${pkg}.consumer_service.ConsumerRestContractTest")
+    }
 }
 
 tasks.named('contractTest') {
