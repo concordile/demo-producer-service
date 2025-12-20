@@ -1,3 +1,6 @@
 spring:
   application:
     name: producer-service
+
+server:
+  port: 8081

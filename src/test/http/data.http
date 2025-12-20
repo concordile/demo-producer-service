@@ -1,0 +1,29 @@
+### Create data
+POST {{apiUrl}}/api/datum
+Content-Type: application/json
+
+{
+  "id": "test-id",
+  "data": "test-data"
+}
+
+### Found data by id
+GET {{apiUrl}}/api/datum/test-id
+
+### Conflict data by id
+POST {{apiUrl}}/api/datum
+Content-Type: application/json
+
+{
+  "id": "test-id",
+  "data": "other-data"
+}
+
+### Not found data by id
+GET {{apiUrl}}/api/datum/unknown-id
+
+### Get all data
+GET {{apiUrl}}/api/datum
+
+### Delete
+DELETE {{apiUrl}}/api/datum/test-id
