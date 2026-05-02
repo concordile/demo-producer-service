@@ -22,7 +22,7 @@ plugins {
     id 'io.github.concordile' version '0.1.0-SNAPSHOT'
 }
 
-group = 'io.github.concordile'
+group = 'io.github.concordile.demo'
 version = '0.1.0-SNAPSHOT'
 description = 'producer-service'
 
@@ -64,6 +64,24 @@ contracts {
     basePackageForTests = pkg
     baseClassMappings {
         baseClassMapping('consumer-service.rest', "${pkg}.consumer_service.ConsumerRestContractTest")
+    }
+}
+
+concordile {
+    broker {
+        url = 'http://localhost:8080'
+    }
+
+    application {
+        groupId = 'io.github.concordile.demo'
+        name = 'producer-service'
+        version = '0.1.0-SNAPSHOT'
+    }
+
+    consumers {
+        'consumer-service' {
+            groupId = 'io.github.concordile.demo'
+        }
     }
 }
 
