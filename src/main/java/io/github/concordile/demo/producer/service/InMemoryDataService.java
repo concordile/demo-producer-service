@@ -36,13 +36,14 @@ public class InMemoryDataService implements DataService {
     private final Map<String, DataDomain> dataById = new ConcurrentHashMap<>();
 
     @Override
-    public void insert(DataDomain data) {
+    public DataDomain insert(DataDomain data) {
         String dataId = data.id();
         if (dataById.containsKey(dataId)) {
             throw new DataConflictException(dataId);
         }
         dataById.put(dataId, data);
         log.info("Created new data - {}", data);
+        return data;
     }
 
     @Override

@@ -23,7 +23,7 @@ import java.util.Optional;
 
 public interface DataService {
 
-    void insert(DataDomain data);
+    DataDomain insert(DataDomain data);
 
     Optional<DataDomain> find(String dataId);
 

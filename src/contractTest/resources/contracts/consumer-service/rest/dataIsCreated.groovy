@@ -32,6 +32,7 @@ Contract.make {
     response {
         status CREATED()
         headers {
+            contentType(applicationJson())
             header(
                     LOCATION,
                     $(
@@ -40,5 +41,9 @@ Contract.make {
                     )
             )
         }
+        body(
+                id: $(consumer('id-test'), producer(regex('id-.+'))),
+                data: $(consumer('value-test'), producer(anyNonBlankString()))
+        )
     }
 }

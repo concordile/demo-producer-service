@@ -37,7 +37,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,12 +52,13 @@ public class DataController {
     @PostMapping
     public ResponseEntity<DataResponse> create(@RequestBody DataRequest request) {
         var data = requestConverter.convert(request);
-        service.insert(data);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+        var insertedData = service.insert(data);
+        var response = responseConverter.convert(insertedData);
+        var location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(data.id())
                 .toUri();
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(response);
     }
 
     @GetMapping("/{dataId}")
